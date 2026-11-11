@@ -23,7 +23,7 @@ class UBAAirDataClient:
 
     base_url: str = DEFAULT_BASE_URL
     timeout_seconds: float = 30.0
-    user_agent: str = "python-uba-air-data/0.1.0"
+    user_agent: str = "uba-air-data/0.1.0"
 
     def _build_url(self, path: str, params: dict[str, Any] | None = None) -> str:
         cleaned_path = path.lstrip("/")

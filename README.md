@@ -1,4 +1,4 @@
-# python-uba-air-data
+# uba-air-data
 
 Small Python client for the Umweltbundesamt (UBA) Air Data API v4.
 
