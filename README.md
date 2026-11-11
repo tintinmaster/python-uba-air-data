@@ -25,6 +25,20 @@ meta_payload = client.meta_json(
 )
 rows = records_from_payload(meta_payload)
 
+airquality_payload = client.airquality_json(
+    date_from="2026-11-01",
+    date_to="2026-11-02",
+    time_from=1,
+    time_to=24,
+    lang="en",
+)
+
+measures_payload = client.measures_json(
+    date_from="2026-11-01",
+    date_to="2026-11-02",
+    extra_params={"data[0][st]": 100, "data[0][co]": 1, "data[0][sc]": 1},
+)
+
 stations = client.stations_json(lang="en")
 components = client.components_json(lang="en")
 ```

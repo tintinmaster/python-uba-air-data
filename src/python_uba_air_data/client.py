@@ -101,6 +101,54 @@ class UBAAirDataClient:
             params.update(extra_params)
         return self._request_json("meta/json", params=params)
 
+    def airquality_json(
+        self,
+        *,
+        date_from: str,
+        date_to: str,
+        time_from: int | None = None,
+        time_to: int | None = None,
+        lang: str | None = None,
+        extra_params: dict[str, Any] | None = None,
+    ) -> Any:
+        params: dict[str, Any] = {
+            "date_from": date_from,
+            "date_to": date_to,
+        }
+        if time_from is not None:
+            params["time_from"] = time_from
+        if time_to is not None:
+            params["time_to"] = time_to
+        if lang:
+            params["lang"] = lang
+        if extra_params:
+            params.update(extra_params)
+        return self._request_json("airquality/json", params=params)
+
+    def measures_json(
+        self,
+        *,
+        date_from: str,
+        date_to: str,
+        time_from: int | None = None,
+        time_to: int | None = None,
+        lang: str | None = None,
+        extra_params: dict[str, Any] | None = None,
+    ) -> Any:
+        params: dict[str, Any] = {
+            "date_from": date_from,
+            "date_to": date_to,
+        }
+        if time_from is not None:
+            params["time_from"] = time_from
+        if time_to is not None:
+            params["time_to"] = time_to
+        if lang:
+            params["lang"] = lang
+        if extra_params:
+            params.update(extra_params)
+        return self._request_json("measures/json", params=params)
+
     def measures_csv_text(self, params: dict[str, Any]) -> str:
         if self.base_url.rstrip("/").endswith("/v4"):
             measures_base_url = f"{self.base_url.rstrip('/')[:-3]}/v2/measures/csv"

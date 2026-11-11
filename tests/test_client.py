@@ -51,6 +51,40 @@ class ClientTests(unittest.TestCase):
         request = mocked_urlopen.call_args.args[0]
         self.assertIn("/api/air-data/v2/measures/csv", request.full_url)
 
+    @patch("python_uba_air_data.client.urlopen")
+    def test_airquality_json(self, mocked_urlopen) -> None:
+        mocked_urlopen.return_value = _FakeResponse('{"indices":["station"],"data":{"0":["A"]}}')
+        client = UBAAirDataClient(base_url="https://example.com/api/air-data/v4")
+
+        payload = client.airquality_json(
+            date_from="2026-01-01",
+            date_to="2026-01-02",
+            time_from=1,
+            time_to=24,
+            lang="en",
+        )
+
+        self.assertEqual(payload["indices"], ["station"])
+        request = mocked_urlopen.call_args.args[0]
+        self.assertIn("/airquality/json?", request.full_url)
+        self.assertIn("date_from=2026-01-01", request.full_url)
+
+    @patch("python_uba_air_data.client.urlopen")
+    def test_measures_json(self, mocked_urlopen) -> None:
+        mocked_urlopen.return_value = _FakeResponse('{"indices":["date end"],"data":{"0":["2026-01-01 12:00:00"]}}')
+        client = UBAAirDataClient(base_url="https://example.com/api/air-data/v4")
+
+        payload = client.measures_json(
+            date_from="2026-01-01",
+            date_to="2026-01-02",
+            extra_params={"data[0][st]": 100, "data[0][co]": 1, "data[0][sc]": 1},
+        )
+
+        self.assertEqual(payload["indices"], ["date end"])
+        request = mocked_urlopen.call_args.args[0]
+        self.assertIn("/measures/json?", request.full_url)
+        self.assertIn("data%5B0%5D%5Bst%5D=100", request.full_url)
+
 
 class PayloadTransformTests(unittest.TestCase):
     def test_records_from_payload_dict_data(self) -> None:
