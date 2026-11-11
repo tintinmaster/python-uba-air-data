@@ -49,4 +49,5 @@ rows = client.measures_csv_rows(
 ## Notes
 
 - API docs: https://luftdaten.umweltbundesamt.de/api/air-data/v4/doc
+- Source reference: "Umweltbundesamt mit Daten der Messnetze der Länder und des Bundes".
 - `records_from_payload` converts payloads using `indices` + `data` into row dictionaries.
