@@ -11,9 +11,9 @@ pip install -e .
 ## Usage
 
 ```python
-from python_uba_air_data import UBAAirDataClient, records_from_payload
+from python_uba_air_data import AsyncUBAAirDataClient, records_from_payload
 
-client = UBAAirDataClient()
+client = AsyncUBAAirDataClient()
 
 meta_payload = client.meta_json(
     use="airquality",
